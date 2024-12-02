@@ -1,15 +1,18 @@
 package org.example.clases;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.HashMap;
 
 @Entity
 public class Alumno {
+    @Id
     private String nif;
     private String nombre;
     private String apellido;
-    private HashMap<Asignatura,Double> asignaturas;
-    private Clase clase;
+    @Embedded private HashMap<Asignatura,Double> asignaturas;
+    @Embedded private Clase clase;
 
 
     public Alumno(String nif, String nombre, String apellido, HashMap<Asignatura,Double> asignaturas, Clase clase) {
