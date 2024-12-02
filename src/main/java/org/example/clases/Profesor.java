@@ -22,6 +22,7 @@ public class Profesor {
         this.asignatura = asignatura;
         this.departamento = departamento;
         this.alumnos = alumnos;
+
     }
 
     public String getId() {
@@ -62,6 +63,14 @@ public class Profesor {
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
+    }
+
+    public List<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(List<Alumno> alumnos) {
+        this.alumnos = alumnos;
     }
 
     @Override
