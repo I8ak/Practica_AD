@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.util.HashMap;
 
 @Entity
-public class Alumnos {
+public class Alumno {
     @Id
     private String nif;
     private String nombre;
@@ -16,7 +16,7 @@ public class Alumnos {
     @Embedded private Clase clase;
 
 
-    public Alumnos(String nif, String nombre, String apellido, HashMap<Asignatura,Double> asignaturas, Clase clase) {
+    public Alumno(String nif, String nombre, String apellido, HashMap<Asignatura,Double> asignaturas, Clase clase) {
         this.nif = nif;
         this.nombre = nombre;
         this.apellido = apellido;
