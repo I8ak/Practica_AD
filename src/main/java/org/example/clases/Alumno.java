@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import java.util.HashMap;
 
 @Entity
-public class Alumnos {
+public class Alumno {
     private String nif;
     private String nombre;
     private String apellido;
@@ -12,7 +12,7 @@ public class Alumnos {
     private Clase clase;
 
 
-    public Alumnos(String nif, String nombre, String apellido, HashMap<Asignatura,Double> asignaturas, Clase clase) {
+    public Alumno(String nif, String nombre, String apellido, HashMap<Asignatura,Double> asignaturas, Clase clase) {
         this.nif = nif;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -64,3 +64,4 @@ public class Alumnos {
 
 
 }
+
