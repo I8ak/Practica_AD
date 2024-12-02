@@ -1,5 +1,8 @@
 package org.example.clases;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Asignatura {
     private String nombre;
     private double nota;
