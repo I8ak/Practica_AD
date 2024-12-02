@@ -32,7 +32,6 @@ public class AlumnoDAO {
         et.commit();
     }
 
-
     public static void eliminarAlumno(Alumno alumno){
         EntityManager em= ConexionODB.getConexion();
         EntityTransaction et=em.getTransaction();
