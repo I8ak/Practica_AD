@@ -55,4 +55,13 @@ public class ProfesorDAO {
         crearProfesor(p);
 
     }
+    public static void eliminarAlumnoProfesor(String codigo){
+        EntityManager em= ConexionODB.getConexion();
+        EntityTransaction et=em.getTransaction();
+        leerProfesor(codigo);
+        et.begin();
+        Profesor profesor=null ;
+        
+
+    }
 }

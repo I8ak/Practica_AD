@@ -1,5 +1,6 @@
 package org.example.clases;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.ArrayList;
@@ -10,8 +11,8 @@ public class Profesor {
     @Id private String id;
     private String nombre;
     private String apellido;
-    private Asignatura asignatura;
-    private Departamento departamento;
+    @Embedded private Asignatura asignatura;
+    @Embedded private Departamento departamento;
     private List<Alumno> alumnos;
 
     public Profesor(String id, String nombre, String apellido, Asignatura asignatura, Departamento departamento, List<Alumno> alumnos) {
