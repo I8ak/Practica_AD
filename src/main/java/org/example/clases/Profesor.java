@@ -14,7 +14,7 @@ public class Profesor {
     private Departamento departamento;
     private List<Alumno> alumnos;
 
-    public Profesor(String id, String nombre, String apellido, Asignatura asignatura, Departamento departamento, ArrayList<Alumno> alumnos) {
+    public Profesor(String id, String nombre, String apellido, Asignatura asignatura, Departamento departamento, List<Alumno> alumnos) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;

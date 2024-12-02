@@ -1,11 +1,15 @@
 package org.example;
 
+import org.example.clases.Alumno;
 import org.example.clases.Profesor;
 import org.example.dao.ProfesorDAO;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
         System.out.println("Introduce opción: " +
                 "\n1. Crear asignatura" +
@@ -56,6 +60,21 @@ public class Main {
                 break;
         }
     }
+
+    public static List<Alumno> crearAlumno() {
+        List<Alumno> alumnos = new ArrayList<>();
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el nif del alumno:");
+        String nif = sc.nextLine();
+        System.out.println("Introduce el nombre del alumno");
+        String nombre = sc.nextLine();
+        System.out.println("Introduce el apellido del alumno");
+        String apellido = sc.nextLine();
+        Alumno alumno = new Alumno(nif, nombre, apellido, null, null);
+        alumnos.add(alumno);
+        return alumnos;
+    }
     public static void crearProfesor() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduce id de profesor");
@@ -70,6 +89,7 @@ public class Main {
         String asignatura = sc.nextLine();
         System.out.println("Introduce departamento del profesor");
         String departamento = sc.nextLine();
-        Profesor p = new Profesor(id, nombre, apellido, departamento, alumnos);
+
+        Profesor p = new Profesor(id, nombre, apellido, null, null, crearAlumno());
     }
 }
