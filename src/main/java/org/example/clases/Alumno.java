@@ -1,12 +1,13 @@
 package org.example.clases;
 
+import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.HashMap;
 
 @Entity
-public class Alumno {
+public class Alumnos {
     @Id
     private String nif;
     private String nombre;
@@ -15,7 +16,7 @@ public class Alumno {
     @Embedded private Clase clase;
 
 
-    public Alumno(String nif, String nombre, String apellido, HashMap<Asignatura,Double> asignaturas, Clase clase) {
+    public Alumnos(String nif, String nombre, String apellido, HashMap<Asignatura,Double> asignaturas, Clase clase) {
         this.nif = nif;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -67,4 +68,3 @@ public class Alumno {
 
 
 }
-
