@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 public class ConexionODB {
     public static EntityManager getConexion() {
-        EntityManagerFactory emf= Persistence.createEntityManagerFactory("./db/hospital.odb");
+        EntityManagerFactory emf= Persistence.createEntityManagerFactory("./db/escuela.odb");
         return emf.createEntityManager();
     }
 }

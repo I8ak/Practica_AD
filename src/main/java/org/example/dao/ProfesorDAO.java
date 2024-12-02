@@ -14,6 +14,7 @@ public class ProfesorDAO {
         em.persist(profesor);
         et.commit();
     }
+    //leer
     public static Profesor leerProfesor(String codigo){
         EntityManager em= ConexionODB.getConexion();
         EntityTransaction et=em.getTransaction();
@@ -38,4 +39,5 @@ public class ProfesorDAO {
         em.remove(profesor);
         et.commit();
     }
+
 }
