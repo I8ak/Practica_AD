@@ -5,7 +5,7 @@ public class Clase {
 
     public Clase(String codigo) {
         this.codigo = codigo;
-    }
+    }// aaaa
 
     public String getCodigo() {
         return codigo;

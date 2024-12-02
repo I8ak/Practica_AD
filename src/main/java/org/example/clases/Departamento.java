@@ -6,7 +6,7 @@ public class Departamento {
     public String getCodigo() {
         return codigo;
     }
-
+// aaaa
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
