@@ -39,4 +39,5 @@ public class ProfesorDAO {
         em.remove(profesor);
         et.commit();
     }
+
 }
