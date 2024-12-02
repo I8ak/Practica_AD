@@ -14,4 +14,28 @@ public class ProfesorDAO {
         em.persist(profesor);
         et.commit();
     }
+    public static Profesor leerProfesor(String codigo){
+        EntityManager em= ConexionODB.getConexion();
+        EntityTransaction et=em.getTransaction();
+        Profesor profesor=em.find(Profesor.class, codigo);
+        System.out.println(profesor);
+        em.close();
+        return profesor;
+    }
+    public static void actualizarProfesor(Profesor profesor,String codigo){
+        EntityManager em= ConexionODB.getConexion();
+        EntityTransaction et=em.getTransaction();
+        leerProfesor(codigo);
+        et.begin();
+        profesor.setAsignatura(profesor.getAsignatura());
+        profesor.setDepartamento(profesor.getDepartamento());
+        et.commit();
+    }
+    public static void eliminarProfesor(Profesor profesor){
+        EntityManager em= ConexionODB.getConexion();
+        EntityTransaction et=em.getTransaction();
+        et.begin();
+        em.remove(profesor);
+        et.commit();
+    }
 }
