@@ -4,7 +4,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.HashMap;
-//
+
 @Entity
 public class Alumno {
     @Id
