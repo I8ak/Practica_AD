@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 @Entity
 public class Profesor {
-    @Id
-    private String id;
+    @Id private String id;
     private String nombre;
     private String apellido;
     private Asignatura asognatura;
