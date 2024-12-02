@@ -1,6 +1,8 @@
 package org.example;
 
 import org.example.clases.Alumno;
+import org.example.clases.Asignatura;
+import org.example.clases.Departamento;
 import org.example.clases.Profesor;
 import org.example.dao.ProfesorDAO;
 
@@ -61,6 +63,23 @@ public class Main {
         }
     }
 
+    public static void crearAsignatura() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el nombre de la asignatura:");
+        String nombre = sc.nextLine();
+        Asignatura asignatura = new Asignatura(nombre);
+        System.out.println("Asignatura creada: " + asignatura);
+    }
+
+    public static void crearDepartamento() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el nombre del departamento:");
+        String nombre = sc.nextLine();
+        Departamento departamento = new Departamento(nombre);
+        // Aquí puedes llamar al DAO para persistir el departamento
+        System.out.println("Departamento creado: " + departamento);
+    }
+
     public static List<Alumno> crearAlumno() {
         List<Alumno> alumnos = new ArrayList<>();
 
@@ -89,6 +108,7 @@ public class Main {
         String asignatura = sc.nextLine();
         System.out.println("Introduce departamento del profesor");
         String departamento = sc.nextLine();
+
 
         Profesor p = new Profesor(id, nombre, apellido, null, null, crearAlumno());
     }
