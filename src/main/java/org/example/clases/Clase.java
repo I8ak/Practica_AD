@@ -1,5 +1,8 @@
 package org.example.clases;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Clase {
     private String codigo;
 
