@@ -55,6 +55,13 @@ public class Alumno {
         this.apellido = apellido;
     }
 
+    public Map<Asignatura, Double> getAsignaturas() {
+        return asignaturas;
+    }
+
+    public void setAsignaturas(Map<Asignatura, Double> asignaturas) {
+        this.asignaturas = asignaturas;
+    }
 
     @Override
     public String toString() {
