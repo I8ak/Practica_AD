@@ -11,10 +11,6 @@ public class Main {
     private static List<Alumno> listaAlumnos = new ArrayList<>();
 
 
-    public Main() {
-    }
-
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         boolean comprobar = true;
@@ -140,72 +136,8 @@ public class Main {
     }
 
 
-    public static void eliminarAlumno() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Introduce el NIF del alumno:");
-        String nif = sc.nextLine();
-        Alumno alumno = buscarAlumnoPorNif(nif);
-        if (alumno == null) {
-            System.out.println("No se encontró un alumno con ese NIF.");
-        } else {
-            Map<Asignatura, Double> asignaturas = alumno.getAsignaturas();
-            if (asignaturas.isEmpty()) {
-                System.out.println("El alumno no tiene asignaturas registradas.");
-            } else {
-                System.out.println("Asignaturas del alumno:");
-                Iterator var4 = asignaturas.keySet().iterator();
 
 
-                Asignatura asignaturaAEliminar;
-                while(var4.hasNext()) {
-                    asignaturaAEliminar = (Asignatura)var4.next();
-                    System.out.println("- " + asignaturaAEliminar.getNombre());
-                }
 
 
-                System.out.println("Introduce el nombre de la asignatura que deseas eliminar:");
-                String nombreAsignatura = sc.nextLine();
-                asignaturaAEliminar = null;
-                Iterator var6 = asignaturas.keySet().iterator();
-
-
-                while(var6.hasNext()) {
-                    Asignatura asignatura = (Asignatura)var6.next();
-                    if (asignatura.getNombre().equalsIgnoreCase(nombreAsignatura)) {
-                        asignaturaAEliminar = asignatura;
-                        break;
-                    }
-                }
-
-
-                if (asignaturaAEliminar != null) {
-                    asignaturas.remove(asignaturaAEliminar);
-                    System.out.println("Asignatura eliminada con éxito.");
-                } else {
-                    System.out.println("No se encontró una asignatura con ese nombre.");
-                }
-
-
-            }
-        }
-    }
-
-
-    public static Alumno buscarAlumnoPorNif(String nif) {
-        Iterator var1 = listaAlumnos.iterator();
-
-
-        Alumno alumno;
-        do {
-            if (!var1.hasNext()) {
-                return null;
-            }
-
-
-            alumno = (Alumno)var1.next();
-        } while(!alumno.getNif().equalsIgnoreCase(nif));
-
-
-        return alumno;
-    }
 }
