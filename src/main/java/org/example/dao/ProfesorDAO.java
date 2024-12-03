@@ -30,6 +30,7 @@ public class ProfesorDAO {
         leerProfesor(profesor.getId());
         et.begin();
         Profesor profesorExistente = em.find(Profesor.class, profesor.getId());
+
         profesorExistente.setAsignatura(profesor.getAsignatura());
         profesorExistente.setDepartamento(profesor.getDepartamento());
         profesorExistente.setAlumnos(profesor.getAlumnos());
@@ -39,7 +40,9 @@ public class ProfesorDAO {
         EntityManager em= ConexionODB.getConexion();
         EntityTransaction et=em.getTransaction();
         et.begin();
-        em.remove(profesor);
+        Profesor profesorExistente = em.find(Profesor.class, profesor.getId());
+        profesorExistente.setAlumnos(null);
+        em.remove(profesorExistente);
         et.commit();
     }
 
@@ -51,10 +54,12 @@ public class ProfesorDAO {
         for (Alumno a:profesor.getAlumnos()){
             if (a.getNif().equals(al.getNif())){
                 AlumnoDAO.eliminarAlumno(a);
+                profesor.eliminarAlumnoArray(al,profesor);
             }
         }
-
     }
+
+
     public static void main(String[] args) {
         Asignatura a=new Asignatura("Matematicas");
         Asignatura a1=new Asignatura("Lengua");
@@ -72,13 +77,25 @@ public class ProfesorDAO {
         AlumnoDAO.crearAlumno(al1);
         AlumnoDAO.crearAlumno(al2);
         crearProfesor(p);
+        System.out.println(leerProfesor("1545S"));
 //        Profesor pActualizado=leerProfesor("1545S");
 //        System.out.println(pActualizado);
-//        p.setAsignatura(a);
-//        p.setDepartamento(d);
+//        p.setAsignatura(a1);
+//        p.setDepartamento(d1);
 //        actualizarProfesor(p);
         //System.out.println(p.getAlumnos());
-       System.out.println(leerProfesor("1545S"));
+//        System.out.println(p.getAlumnos());
+//        AlumnoDAO.eliminarAlumno(al1);
+//        AlumnoDAO.eliminarAlumno(al2);
+//        eliminarProfesor(p);
+//        System.out.println(leerProfesor("1545S"));
+        eliminarAlumnoProfesor("1545S",al1);
+        System.out.println(leerProfesor("1545S"));
+
+//        System.out.println(leerProfesor("1545S"));
+//        Profesor pLeido=
+//        actualizarProfesor(pLeido);
+
 
     }
 }
