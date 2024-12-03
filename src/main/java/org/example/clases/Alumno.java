@@ -1,7 +1,9 @@
 package org.example.clases;
 
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +13,7 @@ public class Alumno {
     private String nif;
     private String nombre;
     private String apellido;
-    @Embedded @OneToMany(fetch = FetchType.EAGER)  private Map<Asignatura,Double> asignaturas;
+    @Embedded private Map<Asignatura,Double> asignaturas;
     @Embedded private Clase clase;
 
 
