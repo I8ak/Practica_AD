@@ -61,6 +61,14 @@ public class Alumno {
         this.asignaturas = asignaturas;
     }
 
+    public Clase getClase() {
+        return clase;
+    }
+
+    public void setClase(Clase clase) {
+        this.clase = clase;
+    }
+
     @Override
     public String toString() {
         return "Alumnos{" +
