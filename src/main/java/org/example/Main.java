@@ -1,26 +1,33 @@
 package org.example;
 
-import org.example.clases.*;
-import org.example.dao.ProfesorDAO;
 
-import java.util.*;
+import org.example.clases.Alumno;
+import org.example.clases.Asignatura;
+
+import java.util.Iterator;
 
 public class Main {
-    private static List<Asignatura> listaAsignaturas = new ArrayList<>();
-    private static List<Alumno> listaAlumnos = new ArrayList<>();
+    private static List<Asignatura> listaAsignaturas = new ArrayList();
+    private static List<Alumno> listaAlumnos = new ArrayList();
+
+
+    public Main() {
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         boolean comprobar = true;
 
-        while (comprobar) {
-            mostrar();
-            int opcion = sc.nextInt();
-            sc.nextLine();
 
+        while(comprobar) {
+            System.out.println("Introduce opción: \n1. Crear alumnos\n2. Crear profesor\n3. Eliminar asignatura\n6. Eliminar departamento\n7. Eliminar alumnos\n8. Eliminar profesor\n9. Leer profesor");
+            int opcion = sc.nextInt();
             switch (opcion) {
                 case 0:
                     comprobar = false;
+                default:
+                    System.out.println("Opcion no valida");
                     break;
                 case 1:
                     System.out.println("Crear alumnos");
@@ -31,34 +38,20 @@ public class Main {
                     crearProfesor();
                     break;
                 case 3:
-                    System.out.println("Eliminar asignatura");
+                    System.out.println("Eliminar alumnos");
                     break;
                 case 4:
-                    System.out.println("Eliminar departamento");
+                    System.out.println("Eliminar profesor");
                     break;
                 case 5:
                     System.out.println("Leer profesor");
                     break;
                 case 6:
                     System.out.println("Leer asignatura");
-                    break;
-                default:
-                    System.out.println("Opción no válida");
-                    break;
             }
         }
-    }
 
 
-    public static void mostrar() {
-        System.out.println("Introduce opción: ");
-        System.out.println("1. Crear alumnos");
-        System.out.println("2. Crear profesor");
-        System.out.println("3. Eliminar asignatura");
-        System.out.println("4. Eliminar departamento");
-        System.out.println("5. Leer profesor");
-        System.out.println("6. Leer asignatura");
-        System.out.println("0. Salir");
     }
 
 
@@ -91,7 +84,7 @@ public class Main {
 
 
     public static List<Alumno> crearAlumno() {
-        List<Alumno> alumnos = new ArrayList<>();
+        List<Alumno> alumnos = new ArrayList();
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el nif del alumno:");
         String nif = sc.nextLine();
@@ -102,16 +95,19 @@ public class Main {
         System.out.println("¿Cuantas asignaturas?");
         int numAsignaturas = sc.nextInt();
         Asignatura asignatura = null;
-        HashMap<Asignatura, Double> alumnoNotas = new HashMap<>();
+        HashMap<Asignatura, Double> alumnoNotas = new HashMap();
 
-        for (int i = 0; i < numAsignaturas; ++i) {
+
+        for(int i = 0; i < numAsignaturas; ++i) {
             asignatura = crearAsignatura();
             System.out.println("Escribe la nota");
             double nota = sc.nextDouble();
             alumnoNotas.put(asignatura, nota);
         }
 
-        Clase c = crearClase();
+
+        Clase c = null;
+        c = crearClase();
         Alumno alumno = new Alumno(nif, nombre, apellido, alumnoNotas, c);
         alumnos.add(alumno);
         System.out.println(alumno);
@@ -144,7 +140,72 @@ public class Main {
     }
 
 
+    public static void eliminarAlumno() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el NIF del alumno:");
+        String nif = sc.nextLine();
+        Alumno alumno = buscarAlumnoPorNif(nif);
+        if (alumno == null) {
+            System.out.println("No se encontró un alumno con ese NIF.");
+        } else {
+            Map<Asignatura, Double> asignaturas = alumno.getAsignaturas();
+            if (asignaturas.isEmpty()) {
+                System.out.println("El alumno no tiene asignaturas registradas.");
+            } else {
+                System.out.println("Asignaturas del alumno:");
+                Iterator var4 = asignaturas.keySet().iterator();
 
 
+                Asignatura asignaturaAEliminar;
+                while(var4.hasNext()) {
+                    asignaturaAEliminar = (Asignatura)var4.next();
+                    System.out.println("- " + asignaturaAEliminar.getNombre());
+                }
 
+
+                System.out.println("Introduce el nombre de la asignatura que deseas eliminar:");
+                String nombreAsignatura = sc.nextLine();
+                asignaturaAEliminar = null;
+                Iterator var6 = asignaturas.keySet().iterator();
+
+
+                while(var6.hasNext()) {
+                    Asignatura asignatura = (Asignatura)var6.next();
+                    if (asignatura.getNombre().equalsIgnoreCase(nombreAsignatura)) {
+                        asignaturaAEliminar = asignatura;
+                        break;
+                    }
+                }
+
+
+                if (asignaturaAEliminar != null) {
+                    asignaturas.remove(asignaturaAEliminar);
+                    System.out.println("Asignatura eliminada con éxito.");
+                } else {
+                    System.out.println("No se encontró una asignatura con ese nombre.");
+                }
+
+
+            }
+        }
+    }
+
+
+    public static Alumno buscarAlumnoPorNif(String nif) {
+        Iterator var1 = listaAlumnos.iterator();
+
+
+        Alumno alumno;
+        do {
+            if (!var1.hasNext()) {
+                return null;
+            }
+
+
+            alumno = (Alumno)var1.next();
+        } while(!alumno.getNif().equalsIgnoreCase(nif));
+
+
+        return alumno;
+    }
 }
