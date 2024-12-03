@@ -9,9 +9,6 @@ public class Main {
     private static List<Asignatura> listaAsignaturas = new ArrayList<>();
     private static List<Alumno> listaAlumnos = new ArrayList<>();
 
-    public Main() {
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         boolean comprobar = true;
