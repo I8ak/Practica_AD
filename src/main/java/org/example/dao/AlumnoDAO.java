@@ -23,12 +23,14 @@ public class AlumnoDAO {
         em.close();
         return alumno;
     }
-    public static void actualizarAlumno(Alumno alumno,String codigo){
-        EntityManager em= ConexionODB.getConexion();
-        EntityTransaction et=em.getTransaction();
-        leerAlumno(codigo);
+    public static void actualizarAlumno(Alumno alumno, String codigo) {
+        EntityManager em = ConexionODB.getConexion();
+        EntityTransaction et = em.getTransaction();
         et.begin();
-        alumno.setAsignaturas(alumno.getAsignaturas());
+        Alumno alumnoExistente = em.find(Alumno.class, codigo);
+        alumnoExistente.setNombre(alumno.getNombre());
+        alumnoExistente.setApellido(alumno.getApellido());
+        alumnoExistente.setAsignaturas(alumno.getAsignaturas());
         et.commit();
     }
 

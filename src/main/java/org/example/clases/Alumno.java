@@ -1,6 +1,6 @@
 package org.example.clases;
 
-import javax.persistence.Embeddable;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
