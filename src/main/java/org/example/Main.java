@@ -15,9 +15,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         boolean comprobar = true;
 
-
         while(comprobar) {
-            System.out.println("Introduce opción: \n1. Crear alumnos\n2. Crear profesor\n3. Eliminar asignatura\n6. Eliminar departamento\n7. Eliminar alumnos\n8. Eliminar profesor\n9. Leer profesor");
+            mostrar();
             int opcion = sc.nextInt();
             switch (opcion) {
                 case 0:
@@ -48,6 +47,18 @@ public class Main {
         }
 
 
+    }
+
+
+    public static void mostrar() {
+        System.out.println("Introduce opción: ");
+        System.out.println("1. Crear alumnos");
+        System.out.println("2. Crear profesor");
+        System.out.println("3. Eliminar asignatura");
+        System.out.println("4. Eliminar departamento");
+        System.out.println("5. Leer profesor");
+        System.out.println("6. Leer asignatura");
+        System.out.println("0. Salir");
     }
 
 
