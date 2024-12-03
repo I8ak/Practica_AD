@@ -1,14 +1,14 @@
 package org.example;
 
 
-import org.example.clases.Alumno;
-import org.example.clases.Asignatura;
+import org.example.clases.*;
+import org.example.dao.ProfesorDAO;
 
-import java.util.Iterator;
+import java.util.*;
 
 public class Main {
     private static List<Asignatura> listaAsignaturas = new ArrayList();
-    private static List<Alumno> listaAlumnos = new ArrayList();
+    private static List<Alumno> listaAlumnos = new ArrayList<>();
 
 
     public Main() {
