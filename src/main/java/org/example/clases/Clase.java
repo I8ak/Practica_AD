@@ -19,8 +19,6 @@ public class Clase {
 
     @Override
     public String toString() {
-        return "Clase{" +
-                "codigo='" + codigo + '\'' +
-                '}';
+        return "Clase: " + codigo ;
     }
 }

@@ -29,38 +29,6 @@ public class Alumno {
     }
 
 
-    public void setNif(String nif) {
-        this.nif = nif;
-    }
-
-
-    public String getNombre() {
-        return nombre;
-    }
-
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-
-    public String getApellido() {
-        return apellido;
-    }
-
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public Map<Asignatura, Double> getAsignaturas() {
-        return asignaturas;
-    }
-
-    public void setAsignaturas(Map<Asignatura, Double> asignaturas) {
-        this.asignaturas = asignaturas;
-    }
-
     public Clase getClase() {
         return clase;
     }
@@ -71,13 +39,12 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumnos{" +
-                "nif='" + nif + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", asignaturas=" + asignaturas +
-                ", clase=" + clase +
-                '}';
+        return "Alumno\n"
+                + "\tNIF: "+nif
+                +"\n\tNombre: "+nombre
+                +"\n\tApellido: "+apellido
+                +"\n\t"+asignaturas
+                +"\n\t"+clase;
     }
 
 

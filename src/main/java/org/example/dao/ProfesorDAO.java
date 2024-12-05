@@ -5,8 +5,10 @@ import org.example.clases.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ProfesorDAO {
     public static void crearProfesor(Profesor profesor) {
@@ -30,7 +32,6 @@ public class ProfesorDAO {
         leerProfesor(profesor.getId());
         et.begin();
         Profesor profesorExistente = em.find(Profesor.class, profesor.getId());
-
         profesorExistente.setAsignatura(profesor.getAsignatura());
         profesorExistente.setDepartamento(profesor.getDepartamento());
         profesorExistente.setAlumnos(profesor.getAlumnos());
@@ -40,9 +41,7 @@ public class ProfesorDAO {
         EntityManager em= ConexionODB.getConexion();
         EntityTransaction et=em.getTransaction();
         et.begin();
-        Profesor profesorExistente = em.find(Profesor.class, profesor.getId());
-        profesorExistente.setAlumnos(null);
-        em.remove(profesorExistente);
+        em.remove(profesor);
         et.commit();
     }
 
@@ -54,12 +53,26 @@ public class ProfesorDAO {
         for (Alumno a:profesor.getAlumnos()){
             if (a.getNif().equals(al.getNif())){
                 AlumnoDAO.eliminarAlumno(a);
-                profesor.eliminarAlumnoArray(al,profesor);
             }
         }
+
     }
 
-
+    public static List<Profesor> leerTodosProfes(){
+        String sql="select p from Profesor p";
+        EntityManager em= ConexionODB.getConexion();
+        Query query=em.createQuery(sql);
+        List<Profesor> profesores=query.getResultList();
+        return profesores;
+    }
+    public static List<Alumno> leerAlumnosProfesor(String id){
+        String sql="select a from Profesor p join p.alumnos a where p.id = ?1";
+        EntityManager em= ConexionODB.getConexion();
+        Query query=em.createQuery(sql);
+        query.setParameter(1, id);
+        List alumnos=query.getResultList();
+        return alumnos;
+    }
     public static void main(String[] args) {
         Asignatura a=new Asignatura("Matematicas");
         Asignatura a1=new Asignatura("Lengua");
@@ -74,28 +87,18 @@ public class ProfesorDAO {
         alumnos.add(al1);
         alumnos.add(al2);
         Profesor p=new Profesor("1545S","Miguel","Anguel",a,d,alumnos);
-        AlumnoDAO.crearAlumno(al1);
-        AlumnoDAO.crearAlumno(al2);
-        crearProfesor(p);
-        System.out.println(leerProfesor("1545S"));
+//        AlumnoDAO.crearAlumno(al1);
+//        AlumnoDAO.crearAlumno(al2);
+//        crearProfesor(p);
 //        Profesor pActualizado=leerProfesor("1545S");
 //        System.out.println(pActualizado);
-//        p.setAsignatura(a1);
-//        p.setDepartamento(d1);
+//        p.setAsignatura(a);
+//        p.setDepartamento(d);
 //        actualizarProfesor(p);
         //System.out.println(p.getAlumnos());
-//        System.out.println(p.getAlumnos());
-//        AlumnoDAO.eliminarAlumno(al1);
-//        AlumnoDAO.eliminarAlumno(al2);
-//        eliminarProfesor(p);
-//        System.out.println(leerProfesor("1545S"));
-        eliminarAlumnoProfesor("1545S",al1);
-        System.out.println(leerProfesor("1545S"));
-
-//        System.out.println(leerProfesor("1545S"));
-//        Profesor pLeido=
-//        actualizarProfesor(pLeido);
-
+       System.out.println(leerProfesor("1545S"));
+//        System.out.println(leerTodosProfes());
+//        System.out.println(leerAlumnosProfesor("1545S"));
 
     }
 }

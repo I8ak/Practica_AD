@@ -32,26 +32,46 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("Eliminar alumnos");
+                    eliminarAlumno();
                     break;
                 case 4:
                     System.out.println("Eliminar profesor");
+                    eliminarProfesor();
                     break;
                 case 5:
-                    System.out.println("Leer alumno");
+                    eliminarAlumnosProfe();
                     break;
                 case 6:
-                    System.out.println("Leer profesor");
+                    System.out.println("Leer alumno");
+                    leerAlumno();
                     break;
                 case 7:
-                    System.out.println("Leer asignatura");
+                    System.out.println("Leer profesor");
+                    leerProfesor();
+                    break;
+                case 8:
+                    actualizarAlumno();
+                    break;
+                case 9:
+                    actualizarProfesor();
+                    break;
+                case 10:
+                    AlumnoDAO.leerAlumnos();
+                    break;
+                case 11:
+                    ProfesorDAO.leerTodosProfes();
+                    break;
+                case 12:
+                    leerAlumnosProfesor();
+                    break;
+                case 13:
+                    leerAlumnosClase();
                     break;
                 default:
                     System.out.println("Opcion no valida");
                     break;
             }
         }
-
-
     }
 
 
@@ -59,11 +79,17 @@ public class Main {
         System.out.println("Introduce opción: ");
         System.out.println("1. Crear alumnos");
         System.out.println("2. Crear profesor");
-        System.out.println("3. Eliminar asignatura");
-        System.out.println("4. Eliminar departamento");
-        System.out.println("5. Leer alumno");
-        System.out.println("6. Leer profesor");
-        System.out.println("7. Leer asignatura");
+        System.out.println("3. Eliminar alumno");
+        System.out.println("4. Eliminar profesor");
+        System.out.println("5. Eliminar alumno de un profesor");
+        System.out.println("6. Leer alumno");
+        System.out.println("7. Leer profesor");
+        System.out.println("8. Actualizar aula del alumno");
+        System.out.println("9. Actualizar departamento, asignatura y alumnos de un profesor");
+        System.out.println("10.Leer todos los alumnos");
+        System.out.println("11.Leer todos los profesores");
+        System.out.println("12.Leer alumnos de un profesor");
+        System.out.println("13.Leer los alumnos de un aula");
         System.out.println("0. Salir");
     }
 
@@ -79,7 +105,7 @@ public class Main {
 
     public static Clase crearClase() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Introduce el nombre de la clase:");
+        System.out.println("Introduce el nombre del aula:");
         String c = sc.nextLine();
         Clase clase = new Clase(c);
         System.out.println("Clase creada: " + c);
@@ -107,23 +133,21 @@ public class Main {
         String apellido = sc.nextLine();
         System.out.println("¿Cuantas asignaturas?");
         int numAsignaturas = sc.nextInt();
-        Asignatura asignatura = null;
+
         HashMap<Asignatura, Double> alumnoNotas = new HashMap();
 
-
         for(int i = 0; i < numAsignaturas; ++i) {
-            asignatura = crearAsignatura();
+            Asignatura asignatura = crearAsignatura();
             System.out.println("Escribe la nota");
             double nota = sc.nextDouble();
             alumnoNotas.put(asignatura, nota);
         }
 
-        Clase c = null;
-        c = crearClase();
+        Clase c = crearClase() ;
+
         Alumno alumno = new Alumno(nif, nombre, apellido, alumnoNotas, c);
         AlumnoDAO.crearAlumno(alumno);
         alumnos.add(alumno);
-        System.out.println(alumno);
         listaAlumnos.add(alumno);
         return alumnos;
     }
@@ -169,6 +193,62 @@ public class Main {
             System.out.println("Profesor no encontrado.");
         }
     }
+
+    public static void leerProfesor(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el ID profesor:");
+        String codigo = sc.nextLine();
+        System.out.println(ProfesorDAO.leerProfesor(codigo));
+    }
+
+    public static void leerAlumno(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el NIF alumno:");
+        String nif = sc.nextLine();
+        System.out.println(AlumnoDAO.leerAlumno(nif));
+    }
+
+    public static void actualizarAlumno() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el NIF alumno:");
+        String nif = sc.nextLine();
+        Alumno a = AlumnoDAO.leerAlumno(nif);
+        a.setClase(crearClase());
+        AlumnoDAO.actualizarAlumno(a);
+    }
+
+    public static void actualizarProfesor() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el ID profesor:");
+        String codigo = sc.nextLine();
+        Profesor p = ProfesorDAO.leerProfesor(codigo);
+        p.setDepartamento(crearDepartamento());
+        p.setAlumnos(crearAlumno());
+        p.setAsignatura(crearAsignatura());
+        ProfesorDAO.actualizarProfesor(p);
+    }
+    public static void eliminarAlumnosProfe(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el ID profesor:");
+        String codigo = sc.nextLine();
+        System.out.println("Introduce el NIF alumno:");
+        String nif = sc.nextLine();
+        Alumno a = AlumnoDAO.leerAlumno(nif);
+        ProfesorDAO.eliminarAlumnoProfesor(codigo,a);
+    }
+    public static void leerAlumnosProfesor(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el ID profesor:");
+        String codigo = sc.nextLine();
+        ProfesorDAO.leerAlumnosProfesor(codigo);
+    }
+    public static void leerAlumnosClase(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el codigo del aula:");
+        String codigo = sc.nextLine();
+        AlumnoDAO.leerAlumnosClase(codigo);
+    }
+
 
 
 

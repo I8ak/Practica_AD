@@ -1,7 +1,5 @@
 package org.example.clases;
 
-import org.example.dao.ProfesorDAO;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,7 @@ public class Profesor {
     private String apellido;
     @Embedded private Asignatura asignatura;
     @Embedded private Departamento departamento;
-    @OneToMany(fetch = FetchType.EAGER) private List<Alumno> alumnos;
+    @OneToMany (fetch = FetchType.EAGER) private List<Alumno> alumnos;
 
     public Profesor(String id, String nombre, String apellido, Asignatura asignatura, Departamento departamento, List<Alumno> alumnos) {
         this.id = id;
@@ -75,23 +73,12 @@ public class Profesor {
 
     @Override
     public String toString() {
-
-        return "Profesor{" +
-                "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", asognatura=" + asignatura +
-                ", departamento=" + departamento +
-                ", alumnos=" +alumnos +
-                '}';
-    }
-
-    public void eliminarAlumnoArray(Alumno alumno,Profesor p){
-        for (Alumno a: alumnos){
-            if (a.getNif().equals(alumno.getNif())){
-                alumnos.remove(a);
-                ProfesorDAO.actualizarProfesor(p);
-            }
-        }
+        return "Pofesor:\n"
+                +"\tCodigo "+id
+                +"\n\tNombre: "+nombre
+                +"\n\tApellido: "+apellido
+                +"\n\t"+asignatura
+                +"\n\t"+departamento
+                +"\n\t"+alumnos;
     }
 }

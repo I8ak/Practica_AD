@@ -20,7 +20,6 @@ public class Asignatura {
 
     @Override
     public String toString() {
-        return "Asignatura{" +
-                "nombre='" + nombre ;
+        return "Asignatura: " + nombre ;
     }
 }
