@@ -2,6 +2,7 @@ package org.example;
 
 
 import org.example.clases.*;
+import org.example.dao.AlumnoDAO;
 import org.example.dao.ProfesorDAO;
 
 import java.util.*;
@@ -21,9 +22,6 @@ public class Main {
             switch (opcion) {
                 case 0:
                     comprobar = false;
-                default:
-                    System.out.println("Opcion no valida");
-                    break;
                 case 1:
                     System.out.println("Crear alumnos");
                     crearAlumno();
@@ -39,10 +37,17 @@ public class Main {
                     System.out.println("Eliminar profesor");
                     break;
                 case 5:
-                    System.out.println("Leer profesor");
+                    System.out.println("Leer alumno");
                     break;
                 case 6:
+                    System.out.println("Leer profesor");
+                    break;
+                case 7:
                     System.out.println("Leer asignatura");
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
+                    break;
             }
         }
 
@@ -56,8 +61,9 @@ public class Main {
         System.out.println("2. Crear profesor");
         System.out.println("3. Eliminar asignatura");
         System.out.println("4. Eliminar departamento");
-        System.out.println("5. Leer profesor");
-        System.out.println("6. Leer asignatura");
+        System.out.println("5. Leer alumno");
+        System.out.println("6. Leer profesor");
+        System.out.println("7. Leer asignatura");
         System.out.println("0. Salir");
     }
 
@@ -74,9 +80,9 @@ public class Main {
     public static Clase crearClase() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el nombre de la clase:");
-        String clas = sc.nextLine();
-        Clase clase = new Clase(clas);
-        System.out.println("Clase creada: " + clas);
+        String c = sc.nextLine();
+        Clase clase = new Clase(c);
+        System.out.println("Clase creada: " + c);
         return clase;
     }
 
@@ -112,10 +118,10 @@ public class Main {
             alumnoNotas.put(asignatura, nota);
         }
 
-
         Clase c = null;
         c = crearClase();
         Alumno alumno = new Alumno(nif, nombre, apellido, alumnoNotas, c);
+        AlumnoDAO.crearAlumno(alumno);
         alumnos.add(alumno);
         System.out.println(alumno);
         listaAlumnos.add(alumno);
@@ -134,18 +140,35 @@ public class Main {
         Asignatura a = crearAsignatura();
         Departamento d = crearDepartamento();
         Profesor p = new Profesor(id, nombre, apellido, a, d, listaAlumnos);
+        ProfesorDAO.crearProfesor(p);
         System.out.println(p);
     }
 
+    public static void eliminarAlumno() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el NIF del alumno:");
+        String nif = sc.nextLine();
+        Alumno a = AlumnoDAO.leerAlumno(nif);
+        if (a != null) {
+            AlumnoDAO.eliminarAlumno(a);
+            System.out.println("Alumno eliminado.");
+        } else {
+            System.out.println("Alumno no encontrado.");
+        }
+    }
 
     public static void eliminarProfesor() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Introduce el NIF profesor:");
+        System.out.println("Introduce el ID profesor:");
         String codigo = sc.nextLine();
         Profesor p = ProfesorDAO.leerProfesor(codigo);
-        ProfesorDAO.eliminarProfesor(p);
+        if (p != null) {
+            ProfesorDAO.eliminarProfesor(p);
+            System.out.println("Profesor eliminado.");
+        } else {
+            System.out.println("Profesor no encontrado.");
+        }
     }
-
 
 
 

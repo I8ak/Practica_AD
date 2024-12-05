@@ -17,17 +17,16 @@ public class AlumnoDAO {
     }
     //leer
 
-    public static Alumno leerAlumno(String codigo){
+    public static Alumno leerAlumno(String nif){
         EntityManager em= ConexionODB.getConexion();
-        EntityTransaction et=em.getTransaction();
-        Alumno alumno=em.find(Alumno.class, codigo);
-        System.out.println(alumno);
+        Alumno alumno=em.find(Alumno.class, nif);
         em.close();
         return alumno;
     }
     public static void actualizarAlumno(Alumno alumno) {
         EntityManager em = ConexionODB.getConexion();
         EntityTransaction et = em.getTransaction();
+        leerAlumno(alumno.getNif());
         et.begin();
         Alumno alumnoExistente = em.find(Alumno.class, alumno.getNif());
         alumnoExistente.setClase(alumno.getClase());
