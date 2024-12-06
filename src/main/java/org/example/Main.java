@@ -247,7 +247,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el codigo del aula:");
         String codigo = sc.nextLine();
-        AlumnoDAO.leerAlumnosClase(codigo);
+        System.out.println(AlumnoDAO.leerAlumnosClase(codigo));
     }
 
 
