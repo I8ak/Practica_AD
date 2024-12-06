@@ -22,6 +22,7 @@ public class Main {
             switch (opcion) {
                 case 0:
                     comprobar = false;
+                    break;
                 case 1:
                     System.out.println("Crear alumnos");
                     crearAlumno();
@@ -56,10 +57,10 @@ public class Main {
                     actualizarProfesor();
                     break;
                 case 10:
-                    AlumnoDAO.leerAlumnos();
+                    System.out.println(AlumnoDAO.leerAlumnos());
                     break;
                 case 11:
-                    ProfesorDAO.leerTodosProfes();
+                    System.out.println(ProfesorDAO.leerTodosProfes());
                     break;
                 case 12:
                     leerAlumnosProfesor();
