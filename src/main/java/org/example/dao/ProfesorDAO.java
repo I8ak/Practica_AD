@@ -33,22 +33,31 @@ public class ProfesorDAO {
         return profesor;
     }
     public static void actualizarProfesor(Profesor profesor){
-        EntityManager em= ConexionODB.getConexion();
-        EntityTransaction et=em.getTransaction();
-        leerProfesor(profesor.getId());
-        et.begin();
-        Profesor profesorExistente = em.find(Profesor.class, profesor.getId());
-        profesorExistente.setAsignatura(profesor.getAsignatura());
-        profesorExistente.setDepartamento(profesor.getDepartamento());
-        profesorExistente.setAlumnos(profesor.getAlumnos());
-        et.commit();
+        try {
+            EntityManager em= ConexionODB.getConexion();
+            EntityTransaction et=em.getTransaction();
+            leerProfesor(profesor.getId());
+            et.begin();
+            Profesor profesorExistente = em.find(Profesor.class, profesor.getId());
+            profesorExistente.setAsignatura(profesor.getAsignatura());
+            profesorExistente.setDepartamento(profesor.getDepartamento());
+            profesorExistente.setAlumnos(profesor.getAlumnos());
+            et.commit();
+        } catch (RollbackException e) {
+            System.out.println("Error en la base de datos: " + e.getMessage());
+        }
+
     }
     public static void eliminarProfesor(Profesor profesor){
-        EntityManager em= ConexionODB.getConexion();
-        EntityTransaction et=em.getTransaction();
-        et.begin();
-        em.remove(profesor);
-        et.commit();
+        try {
+            EntityManager em= ConexionODB.getConexion();
+            EntityTransaction et=em.getTransaction();
+            et.begin();
+            em.remove(profesor);
+            et.commit();
+        } catch (RollbackException e) {
+            System.out.println("Error en la base de datos: " + e.getMessage());
+        }
     }
 
     public static void eliminarAlumnoProfesor(String codigo,Alumno al){
