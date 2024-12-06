@@ -6,18 +6,23 @@ import org.example.clases.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ProfesorDAO {
     public static void crearProfesor(Profesor profesor) {
-        EntityManager em= ConexionODB.getConexion();
-        EntityTransaction et=em.getTransaction();
-        et.begin();
-        em.persist(profesor);
-        et.commit();
-        em.close();
+        try {
+            EntityManager em= ConexionODB.getConexion();
+            EntityTransaction et=em.getTransaction();
+            et.begin();
+            em.persist(profesor);
+            et.commit();
+            em.close();
+        } catch(RollbackException e) {
+            System.out.println("Error en la base de datos: " + e.getMessage());
+        }
     }
     //leer
     public static Profesor leerProfesor(String codigo){

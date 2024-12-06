@@ -69,13 +69,11 @@ public class Main {
                     leerAlumnosClase();
                     break;
                 default:
-                    System.out.println("Opcion no valida");
+                    System.out.println("Opción no válida");
                     break;
             }
         }
     }
-
-
     public static void mostrar() {
         System.out.println("Introduce opción: ");
         System.out.println("1. Crear alumnos");
