@@ -22,6 +22,7 @@ public class Main {
             switch (opcion) {
                 case 0:
                     comprobar = false;
+                    break;
                 case 1:
                     System.out.println("Crear alumnos");
                     crearAlumno();
