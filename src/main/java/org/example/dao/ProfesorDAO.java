@@ -24,6 +24,7 @@ public class ProfesorDAO {
             System.out.println("Error en la base de datos: " + e.getMessage());
         }
     }
+
     //leer
     public static Profesor leerProfesor(String codigo){
         EntityManager em= ConexionODB.getConexion();
