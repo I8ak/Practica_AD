@@ -73,7 +73,7 @@ public class Profesor {
 
     @Override
     public String toString() {
-        return "Pofesor:\n"
+        return "Profesor:\n"
                 +"\tCodigo "+id
                 +"\n\tNombre: "+nombre
                 +"\n\tApellido: "+apellido
