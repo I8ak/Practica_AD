@@ -55,6 +55,7 @@ public class ProfesorDAO {
                 AlumnoDAO.eliminarAlumno(a);
             }
         }
+        et.commit();
 
     }
 
@@ -72,33 +73,5 @@ public class ProfesorDAO {
         query.setParameter(1, id);
         List alumnos=query.getResultList();
         return alumnos;
-    }
-    public static void main(String[] args) {
-        Asignatura a=new Asignatura("Matematicas");
-        Asignatura a1=new Asignatura("Lengua");
-        Departamento d=new Departamento("Informática");
-        Departamento d1=new Departamento("Idiomas");
-        HashMap<Asignatura,Double> asignaturas=new HashMap<>();
-        asignaturas.put(a,10.0);
-        Clase c=new Clase("34D");
-        Alumno al1=new Alumno("124312","Ishak","Al Helimi",asignaturas,c);
-        Alumno al2=new Alumno("876514","Abdessamad","El gaabouri",asignaturas,c);
-        ArrayList<Alumno> alumnos=new ArrayList<>();
-        alumnos.add(al1);
-        alumnos.add(al2);
-        Profesor p=new Profesor("1545S","Miguel","Anguel",a,d,alumnos);
-//        AlumnoDAO.crearAlumno(al1);
-//        AlumnoDAO.crearAlumno(al2);
-//        crearProfesor(p);
-//        Profesor pActualizado=leerProfesor("1545S");
-//        System.out.println(pActualizado);
-//        p.setAsignatura(a);
-//        p.setDepartamento(d);
-//        actualizarProfesor(p);
-        //System.out.println(p.getAlumnos());
-       System.out.println(leerProfesor("1545S"));
-//        System.out.println(leerTodosProfes());
-//        System.out.println(leerAlumnosProfesor("1545S"));
-
     }
 }

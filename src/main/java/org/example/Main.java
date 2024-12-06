@@ -140,7 +140,19 @@ public class Main {
         for(int i = 0; i < numAsignaturas; ++i) {
             Asignatura asignatura = crearAsignatura();
             System.out.println("Escribe la nota");
-            double nota = sc.nextDouble();
+            double nota = 0;
+            boolean correcto =true;
+            while (correcto) {
+                try {
+                    nota = sc.nextDouble();
+                    correcto = false;
+                }catch (InputMismatchException e){
+                    System.out.println("Introudce un numero");
+                    sc.nextLine();
+                    correcto =true;
+                }
+            }
+
             alumnoNotas.put(asignatura, nota);
         }
 

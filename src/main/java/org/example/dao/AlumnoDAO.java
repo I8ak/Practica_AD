@@ -59,27 +59,4 @@ public class AlumnoDAO {
         List<Alumno> alumnos= query.getResultList();
         return alumnos;
     }
-
-    public static void main(String[] args) {
-        Asignatura a=new Asignatura("Matematicas");
-        Asignatura a1=new Asignatura("Lengua");
-        HashMap<Asignatura,Double> asignaturas=new HashMap<>();
-        asignaturas.put(a,10.0);
-        Clase c=new Clase("34D");
-        Clase c2=new Clase("54A");
-        Alumno al1=new Alumno("124312","Ishak","Al Helimi",asignaturas,c);
-        Alumno al2=new Alumno("876514","Abdessamad","El gaabouri",asignaturas,c2);
-        ArrayList<Alumno> alumnos=new ArrayList<>();
-        alumnos.add(al1);
-        alumnos.add(al2);
-        crearAlumno(al1);
-        crearAlumno(al2);
-//        al1.setClase(c2);
-//        actualizarAlumno(al1);
-//        leerAlumno("124312");
-//        leerAlumno("876514");
-        System.out.println(leerAlumnos());
-        System.out.println(leerAlumnosClase("34D"));
-    }
-
 }
