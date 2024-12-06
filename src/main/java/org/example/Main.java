@@ -251,7 +251,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el ID profesor:");
         String codigo = sc.nextLine();
-        ProfesorDAO.leerAlumnosProfesor(codigo);
+        System.out.println(ProfesorDAO.leerAlumnosProfesor(codigo));
     }
     public static void leerAlumnosClase(){
         Scanner sc = new Scanner(System.in);
