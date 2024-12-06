@@ -69,13 +69,11 @@ public class Main {
                     leerAlumnosClase();
                     break;
                 default:
-                    System.out.println("Opcion no valida");
+                    System.out.println("Opción no válida");
                     break;
             }
         }
     }
-
-
     public static void mostrar() {
         System.out.println("Introduce opción: ");
         System.out.println("1. Crear alumnos");
@@ -126,13 +124,13 @@ public class Main {
     public static List<Alumno> crearAlumno() {
         List<Alumno> alumnos = new ArrayList();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Introduce el nif del alumno:");
+        System.out.println("Introduce el nif del alumno a crear:");
         String nif = sc.nextLine();
-        System.out.println("Introduce el nombre del alumno");
+        System.out.println("Introduce el nombre del alumno a crear");
         String nombre = sc.nextLine();
-        System.out.println("Introduce el apellido del alumno");
+        System.out.println("Introduce el apellido del alumno a crear");
         String apellido = sc.nextLine();
-        System.out.println("¿Cuantas asignaturas?");
+        System.out.println("¿Cuántas asignaturas tiene?");
         int numAsignaturas = sc.nextInt();
 
         HashMap<Asignatura, Double> alumnoNotas = new HashMap();
