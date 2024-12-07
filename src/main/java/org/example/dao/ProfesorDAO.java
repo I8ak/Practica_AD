@@ -79,7 +79,8 @@ public class ProfesorDAO {
             EntityManager em = ConexionODB.getConexion();
             EntityTransaction et = em.getTransaction();
             et.begin();
-            em.remove(profesor);
+            Profesor profesorExistente = em.find(Profesor.class,profesor.getId());
+            em.remove(profesorExistente);
             et.commit();
         } catch (RollbackException e) {
             System.out.println("Error en la base de datos: " + e.getMessage());

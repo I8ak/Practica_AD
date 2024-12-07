@@ -178,7 +178,6 @@ public class Main {
             }
         }
 
-
         //NOMBRE
         String nombre;
         while (true) {
@@ -188,7 +187,6 @@ public class Main {
                 break;
             }
         }
-
 
         //APELLIDO
         String apellido;
@@ -263,7 +261,6 @@ public class Main {
      *
      * @return Un nuevo profesor creado.
      */
-
     public static void crearProfesor() {
         //ID
         String id;
@@ -288,6 +285,7 @@ public class Main {
                 break;
             }
         }
+
         //APELLIDO
         String apellido;
         while (true) {
@@ -315,11 +313,11 @@ public class Main {
                 break;
             }
         }
-
         Profesor p = new Profesor(id, nombre, apellido, a, d, listaAlumnos);
         ProfesorDAO.crearProfesor(p);
         System.out.println(p);
     }
+
     /**
      * Elimina un alumno solicitando su NIF.
      * Si el alumno existe, se elimina de la base de datos; si no, muestra un mensaje indicando que el alumno no fue encontrado.
@@ -327,12 +325,15 @@ public class Main {
     public static void eliminarAlumno() {
         System.out.println("Introduce el NIF del alumno:");
         String nif = sc.nextLine();
+        if (!NoEstaVacio(nif)) {
+            return;
+        }
         Alumno a = AlumnoDAO.leerAlumno(nif);
         if (a != null) {
             AlumnoDAO.eliminarAlumno(a);
             System.out.println("Alumno eliminado.");
         } else {
-            System.out.println("Alumno no encontrado.");
+            System.out.println("No se encontró un alumno con el NIF proporcionado.");
         }
     }
 
@@ -341,15 +342,17 @@ public class Main {
      * Si el profesor existe, se elimina de la base de datos; si no, muestra un mensaje indicando que el profesor no fue encontrado.
      */
     public static void eliminarProfesor() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el ID profesor:");
         String codigo = sc.nextLine();
+        if (!NoEstaVacio(codigo)) {
+            return;
+        }
         Profesor p = ProfesorDAO.leerProfesor(codigo);
         if (p != null) {
             ProfesorDAO.eliminarProfesor(p);
             System.out.println("Profesor eliminado.");
         } else {
-            System.out.println("Profesor no encontrado.");
+            System.out.println("No se encontró un profesor con el ID proporcionado.");
         }
     }
 
@@ -358,10 +361,18 @@ public class Main {
      * Muestra la información del profesor con el ID proporcionado si existe, de lo contrario muestra un mensaje indicando que no se encontró.
      */
     public static void leerProfesor(){
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el ID profesor:");
         String codigo = sc.nextLine();
-        System.out.println(ProfesorDAO.leerProfesor(codigo));
+        if (!NoEstaVacio(codigo)) {
+            return;
+        }
+        Profesor p = ProfesorDAO.leerProfesor(codigo);
+        if (p != null) {
+            System.out.println(p);
+        } else {
+            System.out.println("No se encontró un profesor con el ID proporcionado.");
+        }
+
     }
 
     /**
@@ -369,70 +380,121 @@ public class Main {
      * Muestra la información del alumno con el NIF proporcionado si existe, de lo contrario muestra un mensaje indicando que no se encontró.
      */
     public static void leerAlumno(){
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el NIF alumno:");
         String nif = sc.nextLine();
-        System.out.println(AlumnoDAO.leerAlumno(nif));
+        if (!NoEstaVacio(nif)) {
+            return;
+        }
+        Alumno a = AlumnoDAO.leerAlumno(nif);
+        if (a != null) {
+            System.out.println(a);
+        } else {
+            System.out.println("No se encontró un alumno con el NIF proporcionado.");
+        }
     }
 
     /**
      * Actualiza el aula de un alumno solicitando su NIF.
-     * El usuario debe proporcionar un nuevo aula, que reemplazará la clase del alumno.
+     * El usuario debe proporcionar un nuevo aula, que reemplazará la clase actual del alumno.
+     * Si el alumno no existe, se muestra un mensaje indicando que no se encontró.
      */
     public static void actualizarAlumno() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el NIF alumno:");
         String nif = sc.nextLine();
+        if (!NoEstaVacio(nif)) {
+            return;
+        }
         Alumno a = AlumnoDAO.leerAlumno(nif);
+        if (a == null) {
+            System.out.println("No se encontró un alumno con el NIF proporcionado.");
+            return;
+        }
         a.setClase(crearClase());
         AlumnoDAO.actualizarAlumno(a);
+        System.out.println("Aula del alumno actualizada correctamente.");
     }
 
     /**
      * Actualiza los datos de un profesor solicitando su ID.
-     * Se actualiza el departamento, la asignatura y la lista de alumnos asociados al profesor.
+     * El usuario debe proporcionar un nuevo departamento, asignatura y lista de alumnos asociados al profesor.
+     * Si el profesor no existe, se muestra un mensaje indicando que no se encontró.
      */
     public static void actualizarProfesor() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el ID profesor:");
         String codigo = sc.nextLine();
+        if (!NoEstaVacio(codigo)) {
+            return;
+        }
         Profesor p = ProfesorDAO.leerProfesor(codigo);
+        if (p == null) {
+            System.out.println("No se encontró un profesor con el ID proporcionado.");
+            return;
+        }
         p.setDepartamento(crearDepartamento());
         p.setAlumnos(crearAlumno());
         p.setAsignatura(crearAsignatura());
         ProfesorDAO.actualizarProfesor(p);
+        System.out.println("Datos del profesor actualizados correctamente.");
     }
+
     /**
      * Elimina un alumno asociado a un profesor especificando ambos identificadores.
-     * El alumno será removido de la lista de alumnos del profesor.
+     * El alumno será removido de la lista de alumnos del profesor correspondiente.
+     * Si no se encuentra al alumno o profesor, se muestra un mensaje indicando que no se encontró .
      */
     public static void eliminarAlumnosProfe(){
-        Scanner sc = new Scanner(System.in);
+        //ID PROFESOR
         System.out.println("Introduce el ID profesor:");
         String codigo = sc.nextLine();
+        if (!NoEstaVacio(codigo)) {
+            return;
+        }
+        Profesor p = ProfesorDAO.leerProfesor(codigo);
+        if (p == null) {
+            System.out.println("No se encontró un profesor con el ID proporcionado.");
+            return;
+        }
+
+        //NIF ALUMNO
         System.out.println("Introduce el NIF alumno:");
         String nif = sc.nextLine();
+        if (!NoEstaVacio(nif)) {
+            return;
+        }
         Alumno a = AlumnoDAO.leerAlumno(nif);
+        if (a == null) {
+            System.out.println("No se encontró un alumno con el NIF proporcionado.");
+            return;
+        }
+
         ProfesorDAO.eliminarAlumnoProfesor(codigo,a);
+        System.out.println("Alumno eliminado del profesor.");
+
     }
+
     /**
      * Lee y muestra los alumnos asociados a un profesor especificando el ID del profesor.
      * Muestra la lista de alumnos que están asignados a ese profesor.
      */
     public static void leerAlumnosProfesor(){
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el ID profesor:");
         String codigo = sc.nextLine();
+        if (!NoEstaVacio(codigo)) {
+            return;
+        }
         System.out.println(ProfesorDAO.leerAlumnosProfesor(codigo));
     }
+
     /**
      * Lee y muestra los alumnos de un aula especificando el código del aula.
      * Muestra la lista de alumnos que están asignados a esa aula.
      */
     public static void leerAlumnosClase(){
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el codigo del aula:");
         String codigo = sc.nextLine();
+        if (!NoEstaVacio(codigo)) {
+            return;
+        }
         System.out.println(AlumnoDAO.leerAlumnosClase(codigo));
     }
 
