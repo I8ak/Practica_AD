@@ -12,27 +12,22 @@ import java.util.*;
  * Utiliza DAOs para realizar operaciones de persistencia en las entidades.
  */
 public class Main {
-    /**
-     * Lista estática para almacenar las asignaturas.
-     */
-    private static List<Asignatura> listaAsignaturas = new ArrayList();
-    /**
-     * Lista estática para almacenar los alumnos.
-     */
-    private static List<Alumno> listaAlumnos = new ArrayList<>();
 
+    private static List<Asignatura> listaAsignaturas = new ArrayList();
+    private static List<Alumno> listaAlumnos = new ArrayList<>();
+    private static Scanner sc = new Scanner(System.in);
     /**
      * Método principal que ejecuta la lógica del programa y presenta un menú interactivo al usuario.
      *
      * @param args Argumentos de línea de comandos.
      */
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         boolean comprobar = true;
 
         while(comprobar) {
             mostrar();
             int opcion = sc.nextInt();
+            sc.nextLine();
             switch (opcion) {
                 case 0:
                     comprobar = false;
@@ -115,9 +110,11 @@ public class Main {
      * @return Objeto Asignatura creado.
      */
     public static Asignatura crearAsignatura() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el nombre de la asignatura:");
         String nombre = sc.nextLine();
+        if (!NoEstaVacio(nombre)) {
+            return null;
+        }
         Asignatura asignatura = new Asignatura(nombre);
         return asignatura;
     }
@@ -128,9 +125,11 @@ public class Main {
      * @return Objeto Clase creado.
      */
     public static Clase crearClase() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el nombre del aula:");
         String c = sc.nextLine();
+        if (!NoEstaVacio(c)) {
+            return null;
+        }
         Clase clase = new Clase(c);
         System.out.println("Clase creada: " + c);
         return clase;
@@ -142,9 +141,11 @@ public class Main {
      * @return Objeto Departamento creado.
      */
     public static Departamento crearDepartamento() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el nombre del departamento:");
         String nombre = sc.nextLine();
+        if (!NoEstaVacio(nombre)) {
+            return null;
+        }
         Departamento departamento = new Departamento(nombre);
         return departamento;
     }
@@ -156,29 +157,65 @@ public class Main {
      */
     public static List<Alumno> crearAlumno() {
         List<Alumno> alumnos = new ArrayList();
-        Scanner sc = new Scanner(System.in);
+        //NIF
         System.out.println("Introduce el nif del alumno a crear:");
         String nif = sc.nextLine();
+        if (!NoEstaVacio(nif)) {
+            return alumnos;
+        }
+        if (AlumnoDAO.leerAlumno(nif) != null) {
+            System.out.println("El NIF del alumno ya existe.");
+            return alumnos;
+        }
+        //NOMBRE
         System.out.println("Introduce el nombre del alumno a crear");
         String nombre = sc.nextLine();
+        if (!NoEstaVacio(nombre)) {
+            return alumnos;
+        }
+        //APELLIDO
         System.out.println("Introduce el apellido del alumno a crear");
         String apellido = sc.nextLine();
-        System.out.println("¿Cuántas asignaturas tiene?");
-        int numAsignaturas = sc.nextInt();
+        if (!NoEstaVacio(apellido)) {
+            return alumnos;
+        }
+        //ASIGNATURAS
+        int numAsignaturas = 0;
+        boolean valido = false;
+        while (!valido) {
+            System.out.println("¿Cuántas asignaturas tiene?");
+            try {
+                numAsignaturas = sc.nextInt();
+                sc.nextLine();
+                if (numAsignaturas < 1) {
+                    System.out.println("Debe ingresar un número mayor que 0.");
+                } else {
+                    valido = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Por favor, ingrese un número entero válido.");
+                sc.nextLine();
+            }
+        }
 
         HashMap<Asignatura, Double> alumnoNotas = new HashMap();
 
         for(int i = 0; i < numAsignaturas; ++i) {
             Asignatura asignatura = crearAsignatura();
+            if (asignatura == null) {
+                return alumnos;
+            }
+            //NOTA
             System.out.println("Escribe la nota");
             double nota = 0;
             boolean correcto =true;
             while (correcto) {
                 try {
                     nota = sc.nextDouble();
+                    sc.nextLine();
                     correcto = false;
                 }catch (InputMismatchException e){
-                    System.out.println("Introudce un numero");
+                    System.out.println("Por favor, ingrese un número.");
                     sc.nextLine();
                     correcto =true;
                 }
@@ -188,7 +225,10 @@ public class Main {
         }
 
         Clase c = crearClase() ;
-
+        if (c == null) {
+            System.out.println("Clase no válida, el proceso de creación del alumno se ha cancelado.");
+            return alumnos;
+        }
         Alumno alumno = new Alumno(nif, nombre, apellido, alumnoNotas, c);
         AlumnoDAO.crearAlumno(alumno);
         alumnos.add(alumno);
@@ -200,15 +240,38 @@ public class Main {
      * Crea un nuevo profesor solicitando datos al usuario.
      */
     public static void crearProfesor() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Introduce id de profesor");
+        //ID
+        System.out.println("Introduce ID de profesor");
         String id = sc.nextLine();
+        if (!NoEstaVacio(id)) {
+            return;
+        }
+        if (ProfesorDAO.leerProfesor(id) != null) {
+            System.out.println("El ID del profesor ya existe.");
+            return;
+        }
+        //NOMBRE
         System.out.println("Introduce nombre del profesor");
         String nombre = sc.nextLine();
+        if (!NoEstaVacio(nombre)) {
+            return;
+        }
+        //APELLIDO
         System.out.println("Introduce apellido del profesor");
         String apellido = sc.nextLine();
+        if (!NoEstaVacio(apellido)) {
+            return;
+        }
+        //ASIGNATURA
         Asignatura a = crearAsignatura();
+        if (a == null) {
+            return;
+        }
+        //DEPARTAMENTO
         Departamento d = crearDepartamento();
+        if (d == null) {
+            return;
+        }
         Profesor p = new Profesor(id, nombre, apellido, a, d, listaAlumnos);
         ProfesorDAO.crearProfesor(p);
         System.out.println(p);
@@ -217,7 +280,6 @@ public class Main {
      * Elimina un alumno solicitando su NIF.
      */
     public static void eliminarAlumno() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el NIF del alumno:");
         String nif = sc.nextLine();
         Alumno a = AlumnoDAO.leerAlumno(nif);
@@ -321,4 +383,20 @@ public class Main {
         String codigo = sc.nextLine();
         System.out.println(AlumnoDAO.leerAlumnosClase(codigo));
     }
+
+    /**
+     * Verifica si el apartado proporcionado no está vacío o es nulo.
+     *
+     * @param apartado La cadena que se desea verificar.
+     * @return {@code true} si el apartado no está vacío ni es nulo, {@code false} en caso contrario.
+     */
+    public static boolean NoEstaVacio(String apartado) {
+        if (apartado == null || apartado.isEmpty()) {
+            System.out.println("Es obligatorio rellenar este apartado.");
+            return false;
+        }
+        return true;
+    }
+
+
 }
