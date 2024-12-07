@@ -8,9 +8,13 @@ import org.example.dao.ProfesorDAO;
 import java.util.*;
 /**
  * Clase principal que actúa como punto de entrada para la aplicación.
- * Proporciona un menú interactivo para gestionar alumnos, profesores, asignaturas, aulas y departamentos.
- * Utiliza DAOs para realizar operaciones de persistencia en las entidades.
+ * Proporciona un menú interactivo que permite gestionar las entidades de alumnos, profesores, asignaturas, aulas y departamentos.
+ * Utiliza Data Access Objects (DAOs) para realizar las operaciones de persistencia de las entidades en la base de datos.
+ *
+ * La aplicación permite crear, eliminar, leer y actualizar la información de alumnos y profesores,
+ * así como gestionar asignaturas y aulas.
  */
+
 public class Main {
 
     private static List<Asignatura> listaAsignaturas = new ArrayList();
@@ -18,6 +22,7 @@ public class Main {
     private static Scanner sc = new Scanner(System.in);
     /**
      * Método principal que ejecuta la lógica del programa y presenta un menú interactivo al usuario.
+     * Este método maneja las interacciones con el usuario y ejecuta la acción correspondiente según la opción seleccionada.
      *
      * @param args Argumentos de línea de comandos.
      */
@@ -83,8 +88,10 @@ public class Main {
             }
         }
     }
+
     /**
      * Muestra el menú de opciones al usuario.
+     * El menú ofrece varias opciones para crear, leer, actualizar y eliminar entidades.
      */
     public static void mostrar() {
         System.out.println("Introduce opción: ");
@@ -105,9 +112,9 @@ public class Main {
     }
 
     /**
-     * Crea una nueva asignatura solicitando datos al usuario.
+     * Crea una nueva asignatura solicitando el nombre al usuario.
      *
-     * @return Objeto Asignatura creado.
+     * @return Objeto Asignatura creado o {@code null} si el nombre del asignatura está vacío.
      */
     public static Asignatura crearAsignatura() {
         System.out.println("Introduce el nombre de la asignatura:");
@@ -120,9 +127,9 @@ public class Main {
     }
 
     /**
-     * Crea una nueva clase solicitando datos al usuario.
+     * Crea una nueva clase solicitando el nombre del aula al usuario.
      *
-     * @return Objeto Clase creado.
+     * @return Objeto Clase creado o {@code null} si el nombre del aula es vacío o nulo.
      */
     public static Clase crearClase() {
         System.out.println("Introduce el nombre del aula:");
@@ -136,9 +143,9 @@ public class Main {
     }
 
     /**
-     * Crea un nuevo departamento solicitando datos al usuario.
+     * Crea un nuevo departamento solicitando el nombre al usuario.
      *
-     * @return Objeto Departamento creado.
+     * @return Objeto Departamento creado o {@code null} si el nombre del departamento está vacío.
      */
     public static Departamento crearDepartamento() {
         System.out.println("Introduce el nombre del departamento:");
@@ -152,8 +159,9 @@ public class Main {
 
     /**
      * Crea una lista de alumnos solicitando datos al usuario.
+     * El método gestiona la creación de un alumno consu NIF, nombre,apellido, asignaturas, nota y una clase asociada.
      *
-     * @return Lista de alumnos creada.
+     * @return Lista de alumnos creada o vacía si la creación fue cancelada en algún paso.
      */
     public static List<Alumno> crearAlumno() {
         List<Alumno> alumnos = new ArrayList();
@@ -224,6 +232,7 @@ public class Main {
             alumnoNotas.put(asignatura, nota);
         }
 
+        //CLASE
         Clase c = crearClase() ;
         if (c == null) {
             System.out.println("Clase no válida, el proceso de creación del alumno se ha cancelado.");
@@ -237,8 +246,11 @@ public class Main {
     }
 
     /**
-     * Crea un nuevo profesor solicitando datos al usuario.
+     * Crea un nuevo profesor solicitando su ID, nombre, apellido, asignatura y departamento.
+     *
+     * @return Un nuevo profesor creado.
      */
+
     public static void crearProfesor() {
         //ID
         System.out.println("Introduce ID de profesor");
@@ -278,6 +290,7 @@ public class Main {
     }
     /**
      * Elimina un alumno solicitando su NIF.
+     * Si el alumno existe, se elimina de la base de datos; si no, muestra un mensaje indicando que el alumno no fue encontrado.
      */
     public static void eliminarAlumno() {
         System.out.println("Introduce el NIF del alumno:");
@@ -292,7 +305,8 @@ public class Main {
     }
 
     /**
-     * Elimina un profesor solicitando su NIF.
+     * Elimina un profesor solicitando su ID.
+     * Si el profesor existe, se elimina de la base de datos; si no, muestra un mensaje indicando que el profesor no fue encontrado.
      */
     public static void eliminarProfesor() {
         Scanner sc = new Scanner(System.in);
@@ -308,7 +322,8 @@ public class Main {
     }
 
     /**
-     * Lee los datos de un profesor solicitando su NIF.
+     * Lee los datos de un profesor solicitando su ID.
+     * Muestra la información del profesor con el ID proporcionado si existe, de lo contrario muestra un mensaje indicando que no se encontró.
      */
     public static void leerProfesor(){
         Scanner sc = new Scanner(System.in);
@@ -319,6 +334,7 @@ public class Main {
 
     /**
      * Lee los datos de un alumno solicitando su NIF.
+     * Muestra la información del alumno con el NIF proporcionado si existe, de lo contrario muestra un mensaje indicando que no se encontró.
      */
     public static void leerAlumno(){
         Scanner sc = new Scanner(System.in);
@@ -329,6 +345,7 @@ public class Main {
 
     /**
      * Actualiza el aula de un alumno solicitando su NIF.
+     * El usuario debe proporcionar un nuevo aula, que reemplazará la clase del alumno.
      */
     public static void actualizarAlumno() {
         Scanner sc = new Scanner(System.in);
@@ -340,8 +357,8 @@ public class Main {
     }
 
     /**
-     * Actualiza los datos de un profesor solicitando su NIF.
-     * Actualiza el departamento, la asignatura y la lista de alumnos asociados.
+     * Actualiza los datos de un profesor solicitando su ID.
+     * Se actualiza el departamento, la asignatura y la lista de alumnos asociados al profesor.
      */
     public static void actualizarProfesor() {
         Scanner sc = new Scanner(System.in);
@@ -355,6 +372,7 @@ public class Main {
     }
     /**
      * Elimina un alumno asociado a un profesor especificando ambos identificadores.
+     * El alumno será removido de la lista de alumnos del profesor.
      */
     public static void eliminarAlumnosProfe(){
         Scanner sc = new Scanner(System.in);
@@ -366,7 +384,8 @@ public class Main {
         ProfesorDAO.eliminarAlumnoProfesor(codigo,a);
     }
     /**
-     * Lee y muestra los alumnos asociados a un profesor especificando el NIF del profesor.
+     * Lee y muestra los alumnos asociados a un profesor especificando el ID del profesor.
+     * Muestra la lista de alumnos que están asignados a ese profesor.
      */
     public static void leerAlumnosProfesor(){
         Scanner sc = new Scanner(System.in);
@@ -376,6 +395,7 @@ public class Main {
     }
     /**
      * Lee y muestra los alumnos de un aula especificando el código del aula.
+     * Muestra la lista de alumnos que están asignados a esa aula.
      */
     public static void leerAlumnosClase(){
         Scanner sc = new Scanner(System.in);
@@ -385,7 +405,7 @@ public class Main {
     }
 
     /**
-     * Verifica si el apartado proporcionado no está vacío o es nulo.
+     * Método auxiliar para comprobar si una cadena no está vacía o es nula
      *
      * @param apartado La cadena que se desea verificar.
      * @return {@code true} si el apartado no está vacío ni es nulo, {@code false} en caso contrario.
