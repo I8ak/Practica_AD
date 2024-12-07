@@ -10,9 +10,7 @@ import java.util.*;
  * Clase principal que actúa como punto de entrada para la aplicación.
  * Proporciona un menú interactivo que permite gestionar las entidades de alumnos, profesores, asignaturas, aulas y departamentos.
  * Utiliza Data Access Objects (DAOs) para realizar las operaciones de persistencia de las entidades en la base de datos.
- *
- * La aplicación permite crear, eliminar, leer y actualizar la información de alumnos y profesores,
- * así como gestionar asignaturas y aulas.
+ * La aplicación permite crear, eliminar, leer y actualizar la información de alumnos y profesores, así como gestionar asignaturas y aulas.
  */
 
 public class Main {
@@ -165,28 +163,43 @@ public class Main {
      */
     public static List<Alumno> crearAlumno() {
         List<Alumno> alumnos = new ArrayList();
+
         //NIF
-        System.out.println("Introduce el nif del alumno a crear:");
-        String nif = sc.nextLine();
-        if (!NoEstaVacio(nif)) {
-            return alumnos;
+        String nif;
+        while (true) {
+            System.out.println("Introduce el NIF del alumno a crear:");
+            nif = sc.nextLine();
+            if (NoEstaVacio(nif)) {
+                if (AlumnoDAO.leerAlumno(nif) != null) {
+                    System.out.println("El NIF del alumno ya existe.");
+                    return alumnos;
+                }
+                break;
+            }
         }
-        if (AlumnoDAO.leerAlumno(nif) != null) {
-            System.out.println("El NIF del alumno ya existe.");
-            return alumnos;
-        }
+
+
         //NOMBRE
-        System.out.println("Introduce el nombre del alumno a crear");
-        String nombre = sc.nextLine();
-        if (!NoEstaVacio(nombre)) {
-            return alumnos;
+        String nombre;
+        while (true) {
+            System.out.println("Introduce el nombre del alumno a crear:");
+            nombre = sc.nextLine();
+            if (NoEstaVacio(nombre)) {
+                break;
+            }
         }
+
+
         //APELLIDO
-        System.out.println("Introduce el apellido del alumno a crear");
-        String apellido = sc.nextLine();
-        if (!NoEstaVacio(apellido)) {
-            return alumnos;
+        String apellido;
+        while (true) {
+            System.out.println("Introduce el apellido del alumno a crear:");
+            apellido = sc.nextLine();
+            if (NoEstaVacio(apellido)) {
+                break;
+            }
         }
+
         //ASIGNATURAS
         int numAsignaturas = 0;
         boolean valido = false;
@@ -253,37 +266,56 @@ public class Main {
 
     public static void crearProfesor() {
         //ID
-        System.out.println("Introduce ID de profesor");
-        String id = sc.nextLine();
-        if (!NoEstaVacio(id)) {
-            return;
+        String id;
+        while (true) {
+            System.out.println("Introduce el ID del profesor:");
+            id = sc.nextLine();
+            if (NoEstaVacio(id)) {
+                if (ProfesorDAO.leerProfesor(id) != null) {
+                    System.out.println("El ID del profesor ya existe.");
+                    return;
+                }
+                break;
+            }
         }
-        if (ProfesorDAO.leerProfesor(id) != null) {
-            System.out.println("El ID del profesor ya existe.");
-            return;
-        }
+
         //NOMBRE
-        System.out.println("Introduce nombre del profesor");
-        String nombre = sc.nextLine();
-        if (!NoEstaVacio(nombre)) {
-            return;
+        String nombre;
+        while (true) {
+            System.out.println("Introduce el nombre del profesor:");
+            nombre = sc.nextLine();
+            if (NoEstaVacio(nombre)) {
+                break;
+            }
         }
         //APELLIDO
-        System.out.println("Introduce apellido del profesor");
-        String apellido = sc.nextLine();
-        if (!NoEstaVacio(apellido)) {
-            return;
+        String apellido;
+        while (true) {
+            System.out.println("Introduce el apellido del profesor:");
+            apellido = sc.nextLine();
+            if (NoEstaVacio(apellido)) {
+                break;
+            }
         }
+
         //ASIGNATURA
-        Asignatura a = crearAsignatura();
-        if (a == null) {
-            return;
+        Asignatura a;
+        while (true) {
+            a = crearAsignatura();
+            if (a != null) {
+                break;
+            }
         }
+
         //DEPARTAMENTO
-        Departamento d = crearDepartamento();
-        if (d == null) {
-            return;
+        Departamento d;
+        while (true) {
+            d = crearDepartamento();
+            if (d != null) {
+                break;
+            }
         }
+
         Profesor p = new Profesor(id, nombre, apellido, a, d, listaAlumnos);
         ProfesorDAO.crearProfesor(p);
         System.out.println(p);

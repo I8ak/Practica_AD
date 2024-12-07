@@ -111,7 +111,7 @@ public class ProfesorDAO {
      * @return Lista de objetos {@link Profesor}.
      */
     public static List<Profesor> leerTodosProfes() {
-        String sql = "select p from Profesor p";
+        String sql = "SELECT p FROM Profesor p";
         EntityManager em = ConexionODB.getConexion();
         Query query = em.createQuery(sql);
         List<Profesor> profesores = query.getResultList();
@@ -125,7 +125,7 @@ public class ProfesorDAO {
      * @return Lista de objetos {@link Alumno} asociados al profesor.
      */
     public static List<Alumno> leerAlumnosProfesor(String id) {
-        String sql = "select a from Profesor p join p.alumnos a where p.id = ?1";
+        String sql = "SELECT a FROM Profesor p JOIN p.alumnos a WHERE p.id = ?1";
         EntityManager em = ConexionODB.getConexion();
         Query query = em.createQuery(sql);
         query.setParameter(1, id);

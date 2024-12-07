@@ -31,6 +31,7 @@ public class AlumnoDAO {
             System.out.println("Error en la base de datos: " + e.getMessage());
         }
     }
+
     /**
      * Lee un alumno de la base de datos por su NIF.
      *
@@ -49,7 +50,6 @@ public class AlumnoDAO {
      *
      * @param alumno Objeto {@link Alumno} con los datos actualizados.
      */
-
     public static void actualizarAlumno(Alumno alumno) {
         try {
             EntityManager em = ConexionODB.getConexion();
@@ -88,7 +88,7 @@ public class AlumnoDAO {
      * @return Lista de objetos {@link Alumno}.
      */
     public static List<Alumno> leerAlumnos(){
-        String sql="select a from Alumno a";
+        String sql="SELECT a FROM Alumno a";
         EntityManager em= ConexionODB.getConexion();
         Query query=em.createQuery(sql);
         List<Alumno> alumnos= query.getResultList();
@@ -102,7 +102,7 @@ public class AlumnoDAO {
      * @return Lista de objetos {@link Alumno} pertenecientes a la clase especificada.
      */
     public static List<Alumno> leerAlumnosClase(String clase){
-        String sql="select a from Alumno a where a.clase.codigo = :claseCodigo";
+        String sql="SELECT a FROM Alumno a WHERE a.clase.codigo = :claseCodigo";
         EntityManager em= ConexionODB.getConexion();
         Query query=em.createQuery(sql);
         query.setParameter("claseCodigo", clase);
