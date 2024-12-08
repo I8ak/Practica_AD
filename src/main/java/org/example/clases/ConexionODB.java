@@ -7,14 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ * Clase que gestiona la conexión a la base de datos ObjectDB.
+ * Esta clase proporciona un método para establecer una conexión con una base de datos ObjectDB
+ * y obtener un {@link EntityManager} que se puede utilizar para realizar operaciones en la base de datos.
+ */
 public class ConexionODB {
 
-    /**
-     * Establece una conexión con la base de datos ObjectDB y devuelve un
-     * {@link EntityManager} para realizar operaciones en la base de datos.
-     *
-     * @return Un objeto {@link EntityManager} conectado a la base de datos.
-     */
     public static EntityManager getConexion() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("./db/escuela.odb");
         return emf.createEntityManager();

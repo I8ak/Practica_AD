@@ -6,44 +6,29 @@ package org.example.clases;
 
 import javax.persistence.Embeddable;
 
+/**
+ * Clase que representa un departamento dentro de un sistema educativo u organizativo.
+ * La clase es embebida (@Embeddable), lo que significa que sus atributos
+ * se integran dentro de otras entidades sin ser mapeada como una entidad independiente en la base de datos.
+ */
 @Embeddable
 public class Departamento {
 
-    /** Nombre del departamento. */
     private String nombre;
 
-    /**
-     * Constructor de la clase Departamento.
-     *
-     * @param codigo Nombre o código del departamento.
-     */
+
     public Departamento(String codigo) {
         this.nombre = codigo;
     }
 
-    /**
-     * Obtiene el nombre del departamento.
-     *
-     * @return Nombre del departamento.
-     */
     public String getNombre() {
         return nombre;
     }
 
-    /**
-     * Establece el nombre del departamento.
-     *
-     * @param nombre Nombre del departamento.
-     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    /**
-     * Devuelve una representación en cadena del departamento.
-     *
-     * @return Representación en cadena del departamento.
-     */
     @Override
     public String toString() {
         return "Departamento: " + nombre;
