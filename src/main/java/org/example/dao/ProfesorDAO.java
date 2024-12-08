@@ -4,14 +4,13 @@
  */
 package org.example.dao;
 
-import org.example.Main;
 import org.example.clases.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -101,6 +100,7 @@ public class ProfesorDAO {
         for (Alumno a : profesor.getAlumnos()) {
             if (a.getNif().equals(al.getNif())) {
                 AlumnoDAO.eliminarAlumno(a);
+                profesor.getAlumnos().remove(al);
             }
         }
         et.commit();
@@ -132,5 +132,23 @@ public class ProfesorDAO {
         query.setParameter(1, id);
         List alumnos = query.getResultList();
         return alumnos;
+    }
+
+    public static void main(String[] args) {
+        Asignatura a=new Asignatura("Mates");
+        Departamento d=new Departamento("Numeros");
+        HashMap<Asignatura,Double> asignaturaDoubleHashMap=new HashMap<>();
+        asignaturaDoubleHashMap.put(a,2.0);
+        Clase c=new Clase("74D");
+        Alumno al=new Alumno("123","Ahmed","al",asignaturaDoubleHashMap,c);
+        List<Alumno> alumos=List.of(al);
+        Profesor p=new Profesor("1","Ishak","al",a,d,alumos);
+//        AlumnoDAO.crearAlumno(al);
+//        ProfesorDAO.crearProfesor(p);
+//        eliminarAlumnoProfesor("1",al);
+        p.setAlumnos(alumos);
+        System.out.println(leerProfesor("1"));
+        p.getAlumnos().removeAll(alumos);
+        System.out.println(p.getAlumnos());
     }
 }
