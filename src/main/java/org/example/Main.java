@@ -110,7 +110,7 @@ public class Main {
     /**
      * Crea una nueva asignatura solicitando al usuario su nombre.
      *
-     * @return Objeto {@link Asignatura} creado.
+     * @return  Asignatura creado.
      */
     public static Asignatura crearAsignatura() {
         Scanner sc = new Scanner(System.in);
@@ -120,9 +120,9 @@ public class Main {
     }
 
     /**
-     * Crea una nueva clase (aula) solicitando al usuario su nombre.
+     * Crea una nueva clase solicitando al usuario su nombre.
      *
-     * @return Objeto {@link Clase} creado.
+     * @return Clase creado.
      */
     public static Clase crearClase() {
         Scanner sc = new Scanner(System.in);
@@ -134,7 +134,7 @@ public class Main {
     /**
      * Crea un nuevo departamento solicitando al usuario su nombre.
      *
-     * @return Objeto {@link Departamento} creado.
+     * @return Departamento creado.
      */
     public static Departamento crearDepartamento() {
         Scanner sc = new Scanner(System.in);
