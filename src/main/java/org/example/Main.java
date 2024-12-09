@@ -174,12 +174,12 @@ public class Main {
      */
     public static List<Alumno> crearAlumno() {
         List<Alumno> alumnos = new ArrayList();
-     /*   List<Profesor> profesores = ProfesorDAO.leerTodosProfes();
-        //VERIFICAMOS SI EXISTEN PROFESORES
-        if (profesores == null || profesores.isEmpty()) {
+        //VERIFICAMOS PROFESOR 1º
+        Profesor profesorExistente = ProfesorDAO.leerProfesor("ejemploID"); // ID de prueba
+        if (profesorExistente == null) {
             System.out.println("No existen profesores. Primero, cree un profesor.");
             return alumnos;
-        }*/
+        }
 
 
         //NIF
@@ -278,14 +278,7 @@ public class Main {
         AlumnoDAO.crearAlumno(alumno);
         alumnos.add(alumno);
         listaAlumnos.add(alumno);
-
-
-  /*      // ACTUALIZAMOS
-        for (Profesor p : profesores) {
-            p.getAlumnos().add(alumno);
-            ProfesorDAO.actualizarProfesor(p);
-        }
-*/
+        
 
         return alumnos;
     }

@@ -1,7 +1,4 @@
-/**
- * Clase que representa una asignatura en la aplicación.
- * Está marcada como embeddable para ser utilizada como parte de otra entidad JPA.
- */
+
 package org.example.clases;
 
 import javax.persistence.Embeddable;

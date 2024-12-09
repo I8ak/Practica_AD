@@ -1,7 +1,4 @@
-/**
- * Clase que representa un alumno en la aplicación.
- * Contiene información sobre su NIF, nombre, apellido, asignaturas y la clase a la que pertenece.
- */
+
 package org.example.clases;
 
 import javax.persistence.*;
