@@ -143,12 +143,12 @@ public class ProfesorDAO {
         Alumno al=new Alumno("123","Ahmed","al",asignaturaDoubleHashMap,c);
         List<Alumno> alumos=List.of(al);
         Profesor p=new Profesor("1","Ishak","al",a,d,alumos);
-//        AlumnoDAO.crearAlumno(al);
-//        ProfesorDAO.crearProfesor(p);
+        AlumnoDAO.crearAlumno(al);
+        ProfesorDAO.crearProfesor(p);
         System.out.println(leerProfesor("1"));
-        AlumnoDAO.eliminarAlumno(al);
+//        AlumnoDAO.eliminarAlumno(al);
 //        eliminarAlumnoProfesor("1",al);
-        System.out.println(leerProfesor("1"));
+//        System.out.println(leerProfesor("1"));
 //        System.out.println(p.getAlumnos());
     }
 }

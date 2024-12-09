@@ -74,8 +74,6 @@ public class AlumnoDAO {
             et.begin();
             Alumno alumnoExistente = em.find(Alumno.class, alumno.getNif());
             em.remove(alumnoExistente);
-
-
             et.commit();
         } catch (RollbackException e) {
             System.out.println("Error en la base de datos: " + e.getMessage());

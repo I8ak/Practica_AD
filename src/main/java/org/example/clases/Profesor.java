@@ -20,12 +20,16 @@ import java.util.List;
 @Entity
 public class Profesor {
 
-    @Id private String id;
+    @Id
+    private String id;
     private String nombre;
     private String apellido;
-    @Embedded private Asignatura asignatura;
-    @Embedded private Departamento departamento;
-    @OneToMany(fetch = FetchType.EAGER) private List<Alumno> alumnos;
+    @Embedded
+    private Asignatura asignatura;
+    @Embedded
+    private Departamento departamento;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Alumno> alumnos;
 
 
     public Profesor(String id, String nombre, String apellido, Asignatura asignatura, Departamento departamento, List<Alumno> alumnos) {
@@ -65,15 +69,16 @@ public class Profesor {
         this.alumnos = alumnos;
     }
 
-    public void eliminarAlumnoArray(Alumno alumno,Profesor p){
-        for (Alumno a: alumnos){
-            if (a.getNif().equals(alumno.getNif())){
+    public void eliminarAlumnoArray(Alumno alumno, Profesor p) {
+        for (Alumno a : alumnos) {
+            if (a.getNif().equals(alumno.getNif())) {
                 alumnos.remove(a);
                 ProfesorDAO.actualizarProfesor(p);
                 break;
             }
         }
     }
+
     @Override
     public String toString() {
         return "Profesor:\n"

@@ -372,6 +372,7 @@ public class Main {
         Alumno a = AlumnoDAO.leerAlumno(nif);
         if (a != null) {
             AlumnoDAO.eliminarAlumno(a);
+            recorrerProfes(a);
             System.out.println("Alumno eliminado.");
         } else {
             System.out.println("No se encontró un alumno con el NIF proporcionado.");
@@ -563,6 +564,20 @@ public class Main {
             return false;
         }
         return true;
+    }
+
+    private static void recorrerProfes(Alumno alumno){
+        ArrayList<Alumno> alumnos=new ArrayList<>();
+        for (Profesor p:ProfesorDAO.leerTodosProfes()){
+            alumnos.addAll(p.getAlumnos());
+            for (Alumno a:alumnos){
+                if (a.getNif().equals(alumno.getNif())) {
+                    p.getAlumnos().remove(a);
+                    ProfesorDAO.actualizarProfesor(p);
+                    break;
+                }
+            }
+        }
     }
 
 
