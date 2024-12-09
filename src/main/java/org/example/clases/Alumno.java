@@ -41,9 +41,6 @@ public class Alumno {
         this.clase = clase;
     }
 
-    public void eliminarAlumnoArray(){
-
-    }
     @Override
     public String toString() {
         return "Alumno\n"

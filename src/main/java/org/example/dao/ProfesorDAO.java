@@ -99,7 +99,10 @@ public class ProfesorDAO {
         et.begin();
         for (Alumno a:profesor.getAlumnos()){
             if (a.getNif().equals(al.getNif())){
-                AlumnoDAO.eliminarAlumno(a);
+
+                Alumno alumnoExistente = em.find(Alumno.class, al.getNif());
+                em.remove(alumnoExistente);
+
                 profesor.eliminarAlumnoArray(al,profesor);
                 break;
             }
@@ -132,23 +135,5 @@ public class ProfesorDAO {
         query.setParameter(1, id);
         List alumnos = query.getResultList();
         return alumnos;
-    }
-
-    public static void main(String[] args) {
-        Asignatura a=new Asignatura("Mates");
-        Departamento d=new Departamento("Numeros");
-        HashMap<Asignatura,Double> asignaturaDoubleHashMap=new HashMap<>();
-        asignaturaDoubleHashMap.put(a,2.0);
-        Clase c=new Clase("74D");
-        Alumno al=new Alumno("123","Ahmed","al",asignaturaDoubleHashMap,c);
-        List<Alumno> alumos=List.of(al);
-        Profesor p=new Profesor("1","Ishak","al",a,d,alumos);
-        AlumnoDAO.crearAlumno(al);
-        ProfesorDAO.crearProfesor(p);
-        System.out.println(leerProfesor("1"));
-//        AlumnoDAO.eliminarAlumno(al);
-//        eliminarAlumnoProfesor("1",al);
-//        System.out.println(leerProfesor("1"));
-//        System.out.println(p.getAlumnos());
     }
 }

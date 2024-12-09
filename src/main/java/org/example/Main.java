@@ -19,7 +19,6 @@ import java.util.*;
 public class Main {
 
 
-    private static List<Asignatura> listaAsignaturas = new ArrayList();
     private static List<Alumno> listaAlumnos = new ArrayList<>();
     private static Scanner sc = new Scanner(System.in);
 
@@ -145,7 +144,6 @@ public class Main {
             return null;
         }
         Clase clase = new Clase(c);
-        System.out.println("Clase creada: " + c);
         return clase;
     }
 
@@ -174,12 +172,7 @@ public class Main {
      */
     public static List<Alumno> crearAlumno() {
         List<Alumno> alumnos = new ArrayList();
-        //VERIFICAMOS PROFESOR 1º
-        Profesor profesorExistente = ProfesorDAO.leerProfesor("ejemploID"); // ID de prueba
-        if (profesorExistente == null) {
-            System.out.println("No existen profesores. Primero, cree un profesor.");
-            return alumnos;
-        }
+
 
 
         //NIF
@@ -278,7 +271,9 @@ public class Main {
         AlumnoDAO.crearAlumno(alumno);
         alumnos.add(alumno);
         listaAlumnos.add(alumno);
-        
+        System.out.println("Creado "+alumno);
+
+        addAlumnoProfe(ProfesorDAO.leerTodosProfes(),listaAlumnos);
 
         return alumnos;
     }
@@ -559,17 +554,24 @@ public class Main {
         return true;
     }
 
-    private static void recorrerProfes(Alumno alumno){
-        ArrayList<Alumno> alumnos=new ArrayList<>();
-        for (Profesor p:ProfesorDAO.leerTodosProfes()){
+    private static void recorrerProfes(Alumno alumno) {
+        ArrayList<Alumno> alumnos = new ArrayList<>();
+        for (Profesor p : ProfesorDAO.leerTodosProfes()) {
             alumnos.addAll(p.getAlumnos());
-            for (Alumno a:alumnos){
+            for (Alumno a : alumnos) {
                 if (a.getNif().equals(alumno.getNif())) {
                     p.getAlumnos().remove(a);
                     ProfesorDAO.actualizarProfesor(p);
                     break;
                 }
             }
+        }
+    }
+
+    private static void addAlumnoProfe(List<Profesor> profesors,List<Alumno> alumnos) {
+        for (Profesor p : profesors) {
+            p.setAlumnos(alumnos);
+            ProfesorDAO.actualizarProfesor(p);
         }
     }
 
