@@ -5,6 +5,8 @@
  */
 package org.example.clases;
 
+import org.example.dao.ProfesorDAO;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +65,15 @@ public class Profesor {
         this.alumnos = alumnos;
     }
 
+    public void eliminarAlumnoArray(Alumno alumno,Profesor p){
+        for (Alumno a: alumnos){
+            if (a.getNif().equals(alumno.getNif())){
+                alumnos.remove(a);
+                ProfesorDAO.actualizarProfesor(p);
+                break;
+            }
+        }
+    }
     @Override
     public String toString() {
         return "Profesor:\n"

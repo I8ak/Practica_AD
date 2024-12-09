@@ -92,18 +92,18 @@ public class ProfesorDAO {
      * @param codigo Código único del profesor.
      * @param al     Objeto {@link Alumno} que se desea eliminar de los alumnos asociados al profesor.
      */
-    public static void eliminarAlumnoProfesor(String codigo, Alumno al) {
-        EntityManager em = ConexionODB.getConexion();
-        EntityTransaction et = em.getTransaction();
-        Profesor profesor = leerProfesor(codigo);
+    public static void eliminarAlumnoProfesor(String codigo,Alumno al){
+        EntityManager em= ConexionODB.getConexion();
+        EntityTransaction et=em.getTransaction();
+        Profesor profesor=leerProfesor(codigo);
         et.begin();
-        for (Alumno a : profesor.getAlumnos()) {
-            if (a.getNif().equals(al.getNif())) {
+        for (Alumno a:profesor.getAlumnos()){
+            if (a.getNif().equals(al.getNif())){
                 AlumnoDAO.eliminarAlumno(a);
-                profesor.getAlumnos().remove(al);
+                profesor.eliminarAlumnoArray(al,profesor);
+                break;
             }
         }
-        et.commit();
     }
 
     /**
@@ -145,10 +145,10 @@ public class ProfesorDAO {
         Profesor p=new Profesor("1","Ishak","al",a,d,alumos);
 //        AlumnoDAO.crearAlumno(al);
 //        ProfesorDAO.crearProfesor(p);
-//        eliminarAlumnoProfesor("1",al);
-        p.setAlumnos(alumos);
         System.out.println(leerProfesor("1"));
-        p.getAlumnos().removeAll(alumos);
-        System.out.println(p.getAlumnos());
+        AlumnoDAO.eliminarAlumno(al);
+//        eliminarAlumnoProfesor("1",al);
+        System.out.println(leerProfesor("1"));
+//        System.out.println(p.getAlumnos());
     }
 }
